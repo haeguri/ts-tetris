@@ -1,16 +1,26 @@
 {
   "name": "ts-tetris",
   "version": "1.0.0",
-  "main": "index.js",
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server",
     "test": "jest"
   },
+  "jest": {
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "globals": {
+      "ts-jest": {
+        "enableTsDiagnostics": true
+      }
+    }
+  },
   "devDependencies": {
     "@types/jest": "^24.0.19",
     "html-webpack-plugin": "^3.2.0",
     "jest": "^24.9.0",
+    "ts-jest": "^24.1.0",
     "ts-loader": "^6.2.0",
     "typescript": "^3.6.4",
     "webpack": "^4.41.2",
