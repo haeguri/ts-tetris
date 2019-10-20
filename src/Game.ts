@@ -1,4 +1,4 @@
-export default class Tetris {
+export default class Game {
   initialize() {
     console.log("initialize");
   }
