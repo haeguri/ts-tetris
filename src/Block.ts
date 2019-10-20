@@ -17,4 +17,6 @@ export default class Block {
 
     this.cells = blocks[type];
   }
+
+  public rotate(isClockWise: boolean = true) {}
 }

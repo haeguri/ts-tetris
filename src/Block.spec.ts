@@ -1,6 +1,7 @@
 import Block from "./Block";
 import BlockType from "./enums/BlockType";
 import blocks from "./datas/blocks";
+import { clone } from "lodash";
 
 describe("Block", () => {
   describe("constructor", () => {
@@ -22,6 +23,26 @@ describe("Block", () => {
       } catch (e) {
         expect(e).toBeInstanceOf(Error);
       }
+    });
+  });
+
+  describe("rotate", () => {
+    it("it should correctly rotate 'I' Block", () => {
+      const block = new Block(BlockType.I);
+      const originCells = clone(block.cells);
+      block.rotate();
+      expect(block.cells).toEqual(
+        // prettier-ignore
+        [
+          [1],
+          [1],
+          [1],
+          [1]
+        ]
+      );
+
+      block.rotate();
+      expect(block.cells).toEqual(originCells);
     });
   });
 });
