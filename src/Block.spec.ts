@@ -195,7 +195,7 @@ describe("Block", () => {
     });
   });
 
-  describe("rotate with counter-clockwise", () => {
+  describe("rotate with counterclockwise", () => {
     it("it should correctly rotate 'I' Block", () => {
       const block = new Block(BlockType.I);
       const originCells = clone(block.cells);

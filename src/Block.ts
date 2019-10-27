@@ -31,11 +31,22 @@ export default class Block {
       const targetCells = [...this.cells[currRow]];
 
       for (let nextRow = 0; nextRow < nextHeight; nextRow++) {
-        if (nextCells[nextRow] === undefined) {
-          nextCells[nextRow] = [];
-        }
+        if (isClockWise) {
+          if (nextCells[nextRow] === undefined) {
+            nextCells[nextRow] = [];
+          }
 
-        nextCells[nextRow].push(targetCells[nextRow]);
+          nextCells[nextRow].push(targetCells[nextRow]);
+        } else {
+          if (nextCells[nextRow] === undefined) {
+            nextCells[nextRow] = [];
+          }
+
+          nextCells[nextRow] = [
+            targetCells[nextHeight - nextRow - 1],
+            ...nextCells[nextRow]
+          ];
+        }
       }
     }
 
