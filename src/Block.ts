@@ -6,15 +6,11 @@ export default class Block {
   public cells: Array<number[]>;
 
   constructor(type: BlockType) {
-    this.type = type;
-    this.init(type);
-  }
-
-  private init(type: BlockType) {
     if (!(type in BlockType)) {
       throw new Error("block type is not valid");
     }
 
+    this.type = type;
     this.cells = blocks[type];
   }
 
