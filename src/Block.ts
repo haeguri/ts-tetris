@@ -31,33 +31,26 @@ export default class Block {
       const targetCells = [...this.cells[currRow]];
 
       for (let nextRow = 0; nextRow < nextHeight; nextRow++) {
-        if (isClockWise) {
-          if (nextCells[nextRow] === undefined) {
-            nextCells[nextRow] = [];
-          }
+        if (nextCells[nextRow] === undefined) {
+          nextCells[nextRow] = [];
+        }
 
+        if (isClockWise) {
           nextCells[nextRow].push(targetCells[nextRow]);
         } else {
-          if (nextCells[nextRow] === undefined) {
-            nextCells[nextRow] = [];
-          }
-
-          nextCells[nextRow] = [
-            targetCells[nextHeight - nextRow - 1],
-            ...nextCells[nextRow]
-          ];
+          nextCells[nextRow].unshift(targetCells[nextHeight - nextRow - 1]);
         }
       }
     }
 
     nextCells.forEach((rowCells, rowIndex) => {
-      let lastCell = rowCells.reduce(
+      let lastFilledIndex = rowCells.reduce(
         (prev, curr, i) => (curr > 0 ? i : prev),
         0
       );
 
       nextCells[rowIndex] = rowCells
-        .slice(0, lastCell + 1)
+        .slice(0, lastFilledIndex + 1)
         .map(n => (n === undefined || n === 0 ? 0 : 1));
     });
 
