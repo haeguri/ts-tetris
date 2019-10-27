@@ -18,5 +18,38 @@ export default class Block {
     this.cells = blocks[type];
   }
 
-  public rotate(isClockWise: boolean = true) {}
+  public rotate(isClockWise: boolean = true) {
+    const currHeight = this.cells.length;
+    const currWidth = this.cells.reduce(
+      (prev, curr) => Math.max(prev, curr.length),
+      0
+    );
+    const nextHeight = currWidth;
+    const nextCells: Array<number[]> = Array.from({ length: nextHeight });
+
+    for (let currRow = currHeight - 1; currRow >= 0; currRow--) {
+      const targetCells = [...this.cells[currRow]];
+
+      for (let nextRow = 0; nextRow < nextHeight; nextRow++) {
+        if (nextCells[nextRow] === undefined) {
+          nextCells[nextRow] = [];
+        }
+
+        nextCells[nextRow].push(targetCells[nextRow]);
+      }
+    }
+
+    nextCells.forEach((rowCells, rowIndex) => {
+      let lastCell = rowCells.reduce(
+        (prev, curr, i) => (curr > 0 ? i : prev),
+        0
+      );
+
+      nextCells[rowIndex] = rowCells
+        .slice(0, lastCell + 1)
+        .map(n => (n === undefined || n === 0 ? 0 : 1));
+    });
+
+    this.cells = nextCells;
+  }
 }
