@@ -26,7 +26,7 @@ describe("Block", () => {
     });
   });
 
-  describe("rotate", () => {
+  describe("rotate with clockwise", () => {
     it("it should correctly rotate 'I' Block", () => {
       const block = new Block(BlockType.I);
       const originCells = clone(block.cells);
@@ -52,28 +52,28 @@ describe("Block", () => {
       expect(block.cells).toEqual(
         // prettier-ignore
         [
-            [1],
-            [1, 1, 1]
-          ]
+          [1],
+          [1, 1, 1]
+        ]
       );
 
       block.rotate();
       expect(block.cells).toEqual(
         // prettier-ignore
         [
-            [1, 1],
-            [1],
-            [1]
-          ]
+          [1, 1],
+          [1],
+          [1]
+        ]
       );
 
       block.rotate();
       expect(block.cells).toEqual(
         // prettier-ignore
         [
-            [1, 1, 1],
-            [0, 0, 1],
-          ]
+          [1, 1, 1],
+          [0, 0, 1],
+        ]
       );
 
       block.rotate();
@@ -87,28 +87,28 @@ describe("Block", () => {
       expect(block.cells).toEqual(
         // prettier-ignore
         [
-            [1, 1, 1],
-            [1]
-          ]
+          [1, 1, 1],
+          [1]
+        ]
       );
 
       block.rotate();
       expect(block.cells).toEqual(
         // prettier-ignore
         [
-            [1, 1],
-            [0, 1],
-            [0, 1]
-          ]
+          [1, 1],
+          [0, 1],
+          [0, 1]
+        ]
       );
 
       block.rotate();
       expect(block.cells).toEqual(
         // prettier-ignore
         [
-            [0, 0, 1],
-            [1, 1, 1],
-          ]
+          [0, 0, 1],
+          [1, 1, 1],
+        ]
       );
 
       block.rotate();
@@ -130,10 +130,10 @@ describe("Block", () => {
       expect(block.cells).toEqual(
         // prettier-ignore
         [
-            [1],
-            [1, 1],
-            [0, 1]
-          ]
+          [1],
+          [1, 1],
+          [0, 1]
+        ]
       );
 
       block.rotate();
@@ -147,29 +147,29 @@ describe("Block", () => {
       expect(block.cells).toEqual(
         // prettier-ignore
         [
-            [0, 1],
-            [1, 1],
-            [0, 1]
-          ]
+          [0, 1],
+          [1, 1],
+          [0, 1]
+        ]
       );
 
       block.rotate();
       expect(block.cells).toEqual(
         // prettier-ignore
         [
-            [0, 1],
-            [1, 1, 1],
-          ]
+          [0, 1],
+          [1, 1, 1],
+        ]
       );
 
       block.rotate();
       expect(block.cells).toEqual(
         // prettier-ignore
         [
-            [1],
-            [1, 1],
-            [1]
-          ]
+          [1],
+          [1, 1],
+          [1]
+        ]
       );
 
       block.rotate();
@@ -184,10 +184,182 @@ describe("Block", () => {
       expect(block.cells).toEqual(
         // prettier-ignore
         [
-            [0, 1],
-            [1, 1],
-            [1]
-          ]
+          [0, 1],
+          [1, 1],
+          [1]
+        ]
+      );
+
+      block.rotate();
+      expect(block.cells).toEqual(originCells);
+    });
+  });
+
+  describe("rotate with counter-clockwise", () => {
+    it("it should correctly rotate 'I' Block", () => {
+      const block = new Block(BlockType.I);
+      const originCells = clone(block.cells);
+      block.rotate(false);
+      expect(block.cells).toEqual(
+        // prettier-ignore
+        [
+          [1],
+          [1],
+          [1],
+          [1]
+        ]
+      );
+
+      block.rotate(false);
+      expect(block.cells).toEqual(originCells);
+    });
+
+    it("it should correctly rotate 'J' Block", () => {
+      const block = new Block(BlockType.J);
+      const originCells = clone(block.cells);
+
+      block.rotate(false);
+      expect(block.cells).toEqual(
+        // prettier-ignore
+        [
+          [1, 1, 1],
+          [0, 0, 1],
+        ]
+      );
+
+      block.rotate(false);
+      expect(block.cells).toEqual(
+        // prettier-ignore
+        [
+          [1, 1],
+          [1],
+          [1]
+        ]
+      );
+
+      block.rotate(false);
+      expect(block.cells).toEqual(
+        // prettier-ignore
+        [
+          [1],
+          [1, 1, 1]
+        ]
+      );
+
+      block.rotate(false);
+      expect(block.cells).toEqual(originCells);
+    });
+
+    it("it should correctly rotate 'L' Block", () => {
+      const block = new Block(BlockType.L);
+      const originCells = clone(block.cells);
+
+      block.rotate();
+      expect(block.cells).toEqual(
+        // prettier-ignore
+        [
+          [0, 0, 1],
+          [1, 1, 1],
+        ]
+      );
+
+      block.rotate();
+      expect(block.cells).toEqual(
+        // prettier-ignore
+        [
+          [1, 1],
+          [0, 1],
+          [0, 1]
+        ]
+      );
+
+      block.rotate();
+      expect(block.cells).toEqual(
+        // prettier-ignore
+        [
+          [1, 1, 1],
+          [1]
+        ]
+      );
+
+      block.rotate();
+      expect(block.cells).toEqual(originCells);
+    });
+
+    it("it should correctly rotate 'O' Block", () => {
+      const block = new Block(BlockType.O);
+      const originCells = clone(block.cells);
+      block.rotate();
+      expect(block.cells).toEqual(originCells);
+    });
+
+    it("it should correctly rotate 'S' Block", () => {
+      const block = new Block(BlockType.S);
+      const originCells = clone(block.cells);
+      block.rotate();
+
+      expect(block.cells).toEqual(
+        // prettier-ignore
+        [
+          [1],
+          [1, 1],
+          [0, 1]
+        ]
+      );
+
+      block.rotate();
+      expect(block.cells).toEqual(originCells);
+    });
+
+    it("it should correctly rotate 'T' Block", () => {
+      const block = new Block(BlockType.T);
+      const originCells = clone(block.cells);
+
+      block.rotate();
+      expect(block.cells).toEqual(
+        // prettier-ignore
+        [
+          [1],
+          [1, 1],
+          [1]
+        ]
+      );
+
+      block.rotate();
+      expect(block.cells).toEqual(
+        // prettier-ignore
+        [
+          [0, 1],
+          [1, 1, 1],
+        ]
+      );
+
+      block.rotate();
+      expect(block.cells).toEqual(
+        // prettier-ignore
+        [
+          [0, 1],
+          [1, 1],
+          [0, 1]
+        ]
+      );
+
+      block.rotate();
+      expect(block.cells).toEqual(originCells);
+    });
+
+    it("it should correctly rotate 'Z' Block", () => {
+      const block = new Block(BlockType.Z);
+      const originCells = clone(block.cells);
+      block.rotate();
+
+      expect(block.cells).toEqual(
+        // prettier-ignore
+        [
+          [0, 1],
+          [1, 1],
+          [1]
+        ]
       );
 
       block.rotate();
