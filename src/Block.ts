@@ -14,16 +14,19 @@ export default class Block {
     this.cells = blocks[type];
   }
 
+  get height() {
+    return this.cells.length;
+  }
+
+  get width() {
+    return this.cells.reduce((prev, curr) => Math.max(prev, curr.length), 0);
+  }
+
   public rotate(isClockWise: boolean = true) {
-    const currHeight = this.cells.length;
-    const currWidth = this.cells.reduce(
-      (prev, curr) => Math.max(prev, curr.length),
-      0
-    );
-    const nextHeight = currWidth;
+    const nextHeight = this.width;
     const nextCells: Array<number[]> = Array.from({ length: nextHeight });
 
-    for (let currRow = currHeight - 1; currRow >= 0; currRow--) {
+    for (let currRow = this.height - 1; currRow >= 0; currRow--) {
       const targetCells = [...this.cells[currRow]];
 
       for (let nextRow = 0; nextRow < nextHeight; nextRow++) {

@@ -1,4 +1,5 @@
 import Block from "./Block";
+import printCell from "./utils/printCell";
 
 interface ConstructorParams {
   width: number;
@@ -29,5 +30,17 @@ export default class Matrix {
     );
   }
 
-  public pushNewBlock(block: Block) {}
+  public pushNewBlock(block: Block) {
+    const leftTopRowIndex = 0;
+    const leftTopColIndex = this.getColumnIndexForNewBlock(block);
+    block.cells.forEach((row, rowI) => {
+      row.forEach((col, colI) => {
+        this.cells[leftTopRowIndex + rowI][leftTopColIndex + colI] = col;
+      });
+    });
+  }
+
+  public getColumnIndexForNewBlock(block: Block) {
+    return Math.floor((this.width - block.width) / 2);
+  }
 }

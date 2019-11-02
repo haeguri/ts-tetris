@@ -64,4 +64,30 @@ describe("Matrix", () => {
       ]);
     });
   });
+
+  describe("getColumnindexForNewBlock", () => {
+    let matrix: Matrix;
+    beforeEach(() => {
+      matrix = new Matrix({ width: 10, height: 10 });
+      matrix.initCells();
+    });
+
+    it("should get column index for push I block", () => {
+      const iBlock = new Block(BlockType.I);
+      let index = matrix.getColumnIndexForNewBlock(iBlock);
+      expect(index).toBe(3);
+      iBlock.rotate();
+      index = matrix.getColumnIndexForNewBlock(iBlock);
+      expect(index).toBe(4);
+    });
+
+    it("should get column index for push J block", () => {
+      const jBlock = new Block(BlockType.J);
+      let index = matrix.getColumnIndexForNewBlock(jBlock);
+      expect(index).toBe(4);
+      jBlock.rotate();
+      index = matrix.getColumnIndexForNewBlock(jBlock);
+      expect(index).toBe(3);
+    });
+  });
 });
