@@ -20,6 +20,7 @@ describe("Block", () => {
     it("it should throw error when not exist type of block", () => {
       try {
         new Block("dummy" as BlockType);
+        fail();
       } catch (e) {
         expect(e).toBeInstanceOf(Error);
       }

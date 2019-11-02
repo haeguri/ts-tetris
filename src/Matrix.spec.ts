@@ -13,6 +13,7 @@ describe("Matrix", () => {
     it("should receive positive number", () => {
       try {
         new Matrix({ width: -1, height: -1 });
+        fail();
       } catch (e) {
         expect(e).toBeInstanceOf(Error);
         expect(e.message).toBe("width, height is must be positive number");
@@ -22,6 +23,7 @@ describe("Matrix", () => {
     it("should receive number as only even number", () => {
       try {
         new Matrix({ width: 5, height: 5 });
+        fail();
       } catch (e) {
         expect(e).toBeInstanceOf(Error);
         expect(e.message).toBe("width, height is must be even number");
