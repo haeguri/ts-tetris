@@ -1,3 +1,5 @@
+import Block from "./Block";
+
 interface ConstructorParams {
   width: number;
   height: number;
@@ -9,12 +11,12 @@ export default class Matrix {
   public cells: number[][];
 
   constructor({ width, height }: ConstructorParams) {
-    if (width % 2 !== 0 || height % 2 !== 0) {
-      throw new Error("width, height is must be even number");
+    if (width <= 0 || height <= 0) {
+      throw new Error("width, height is must be positive number");
     }
 
-    if (width < 0 || height < 0) {
-      throw new Error("width, height is must be positive number");
+    if (width % 2 !== 0 || height % 2 !== 0) {
+      throw new Error("width, height is must be even number");
     }
 
     this.width = width;
@@ -26,4 +28,6 @@ export default class Matrix {
       Array.from<number>({ length: this.width }).fill(0)
     );
   }
+
+  public pushNewBlock(block: Block) {}
 }

@@ -1,4 +1,6 @@
 import Matrix from "./Matrix";
+import Block from "./Block";
+import BlockType from "./enums/BlockType";
 
 describe("Matrix", () => {
   describe("initCells", () => {
@@ -10,9 +12,10 @@ describe("Matrix", () => {
 
     it("should receive positive number", () => {
       try {
-        new Matrix({ width: -1, height: 0 });
+        new Matrix({ width: -1, height: -1 });
       } catch (e) {
         expect(e).toBeInstanceOf(Error);
+        expect(e.message).toBe("width, height is must be positive number");
       }
     });
 
@@ -21,6 +24,7 @@ describe("Matrix", () => {
         new Matrix({ width: 5, height: 5 });
       } catch (e) {
         expect(e).toBeInstanceOf(Error);
+        expect(e.message).toBe("width, height is must be even number");
       }
     });
 
@@ -37,6 +41,27 @@ describe("Matrix", () => {
         [0, 0, 0, 0, 0, 0]
       ]);
     });
-    // it("should ");
+  });
+
+  describe("pushNewBlock", () => {
+    let matrix: Matrix;
+    beforeEach(() => {
+      matrix = new Matrix({ width: 6, height: 6 });
+      matrix.initCells();
+    });
+
+    it("should change cells field by block", () => {
+      const block = new Block(BlockType.I);
+      matrix.pushNewBlock(block);
+      expect(matrix.cells).toEqual([
+        // prettier-ignore
+        [0, 1, 1, 1, 1, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0]
+      ]);
+    });
   });
 });
