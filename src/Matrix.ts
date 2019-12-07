@@ -1,5 +1,9 @@
 import Block from "./Block";
-import printCell from "./utils/printCell";
+
+interface MatrixPosition {
+  row: number;
+  col: number;
+}
 
 interface ConstructorParams {
   width: number;
@@ -22,25 +26,39 @@ export default class Matrix {
 
     this.width = width;
     this.height = height;
-  }
-
-  public initCells() {
-    this.cells = Array.from<number[]>({ length: this.height }).map(_ =>
-      Array.from<number>({ length: this.width }).fill(0)
+    this.cells = Array.from<number[]>({ length: height }).map(_ =>
+      Array.from<number>({ length: width }).fill(0)
     );
   }
 
-  public pushNewBlock(block: Block) {
-    const leftTopRowIndex = 0;
-    const leftTopColIndex = this.getColumnIndexForNewBlock(block);
-    block.cells.forEach((row, rowI) => {
-      row.forEach((col, colI) => {
-        this.cells[leftTopRowIndex + rowI][leftTopColIndex + colI] = col;
+  public isPushable(block: Block) {
+    const leftBottomRow = 0;
+    const leftBottomCol = Math.floor(this.width / block.width) - 1;
+
+    const bottomCells = [];
+    for (let c = 0; c < block.width; c++) {
+      bottomCells.push({
+        row: leftBottomRow,
+        col: leftBottomCol + c
       });
-    });
+    }
+
+    return bottomCells.every(({ row, col }) => this.cells[row][col] === 0);
   }
 
-  public getColumnIndexForNewBlock(block: Block) {
-    return Math.floor((this.width - block.width) / 2);
-  }
+  // public pushNewBlock({ row, col }: MatrixPosition, block: Block) {
+  //   block.cells.forEach((rowCells, rIndex) => {
+  //     rowCells.forEach((_, cIndex) => {
+  //       this.cells[row + rIndex][col + cIndex] = col;
+  //     });
+  //   });
+  // }
+
+  // public getRowIndexForNewBlock() {
+  //   return 0;
+  // }
+
+  // public getColumnIndexForNewBlock(block: Block) {
+  //   return Math.floor((this.width - block.width) / 2);
+  // }
 }

@@ -1,5 +1,8 @@
-import Game from "./Game";
+import Tetris from "./Tetris";
 
-export default function bootstrap() {
-  const game = new Game();
+function bootstrap() {
+  const tetris = new Tetris();
+  tetris.start();
 }
+
+bootstrap();
