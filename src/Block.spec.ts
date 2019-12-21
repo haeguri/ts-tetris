@@ -1,23 +1,10 @@
 import Block from "./Block";
 import BlockType from "./enums/BlockType";
-import blocks from "./datas/blocks";
 import { clone } from "lodash";
 
 describe("Block", () => {
   describe("constructor", () => {
-    it("it should set type using BlockType enum", () => {
-      const block = new Block(BlockType.I);
-      expect(block.type).toBe(BlockType.I);
-    });
-
-    it("it should set different cells by argument", () => {
-      const blockI = new Block(BlockType.I);
-      const blockJ = new Block(BlockType.J);
-      expect(blockI.cells).toEqual(blocks.I);
-      expect(blockJ.cells).toEqual(blocks.J);
-    });
-
-    it("it should throw error when not exist type of block", () => {
+    it("존재하지 않는 타입의 블락을 인자로 받으면 예외를 던진다.", () => {
       try {
         new Block("dummy" as BlockType);
         fail();
@@ -27,137 +14,231 @@ describe("Block", () => {
     });
   });
 
-  const assertRotation = (
-    block: Block,
-    assertionTargets: Array<number[][]>
-  ) => {
-    const originCells = clone(block.cells);
-    assertionTargets.push(originCells);
-
-    assertionTargets.forEach(t => {
-      block.rotate();
-      expect(block.cells).toEqual(t);
-    });
-
-    // 배열을 뒤집어서 역 방향 회전을 검사한다.
-    assertionTargets.pop();
-    assertionTargets.reverse();
-    assertionTargets.push(originCells);
-
-    assertionTargets.forEach(t => {
-      block.rotate(false);
-      expect(block.cells).toEqual(t);
-    });
-  };
-
   describe("rotate", () => {
-    it("it should correctly rotate 'I' Block", () => {
-      const block = new Block(BlockType.I);
-      assertRotation(block, [
-        // prettier-ignore
-        [
+    describe("I 블락", () => {
+      let block: Block;
+      beforeEach(() => {
+        // given
+        block = new Block(BlockType.I);
+      });
+
+      it("시계 방향으로 회전하면 'I' 모양이 된다. ", () => {
+        // when
+        block.rotate(true);
+
+        // then
+        expect(block.cells).toEqual([
+          // prettier-ignore
           [1],
           [1],
           [1],
           [1]
-        ]
-      ]);
+        ]);
+      });
+
+      it("시계 반대 방향으로 회전해도 'I' 모양이 된다.", () => {
+        // when
+        block.rotate(false);
+
+        // then
+        expect(block.cells).toEqual([
+          // prettier-ignore
+          [1],
+          [1],
+          [1],
+          [1]
+        ]);
+      });
     });
 
-    it("it should correctly rotate 'J' Block", () => {
-      const block = new Block(BlockType.J);
-      assertRotation(block, [
-        // prettier-ignore
-        [
+    describe("J 블락", () => {
+      let block: Block;
+      beforeEach(() => {
+        // given
+        block = new Block(BlockType.J);
+      });
+
+      it("시계 방향으로 1번 회전하면 'ㄴ' 모양이 된다.", () => {
+        // when
+        block.rotate(true);
+
+        // then
+        expect(block.cells).toEqual([
+          // prettier-ignore
           [1],
           [1, 1, 1]
-        ],
-        // prettier-ignore
-        [
-          [1, 1],
-          [1],
-          [1]
-        ],
-        [
+        ]);
+      });
+
+      it("시계 반대 방향으로 4번 회전하면 원래 모양으로 되돌아온다.", () => {
+        // given
+        const originCells = clone(block);
+
+        // when
+        block.rotate(false);
+        block.rotate(false);
+        block.rotate(false);
+        block.rotate(false);
+
+        // then
+        expect(block.cells).toEqual(originCells.cells);
+      });
+    });
+
+    describe("L 블락", () => {
+      let block: Block;
+      beforeEach(() => {
+        // given
+        block = new Block(BlockType.L);
+      });
+
+      it("시계 2번 회전하면 'ㄱ' 모양이 된다.", () => {
+        // when
+        block.rotate(true);
+        block.rotate(true);
+
+        // then
+        expect(block.cells).toEqual([
           // prettier-ignore
-          [1, 1, 1],
-          [0, 0, 1]
-        ]
-      ]);
-    });
-
-    it("it should correctly rotate 'L' Block", () => {
-      const block = new Block(BlockType.L);
-      assertRotation(block, [
-        // prettier-ignore
-        [
-          [1, 1, 1],
-          [1]
-        ],
-        // prettier-ignore
-        [
           [1, 1],
           [0, 1],
           [0, 1]
-        ],
-        // prettier-ignore
-        [
-          [0, 0, 1],
-          [1, 1, 1],
-        ]
-      ]);
+        ]);
+      });
+
+      it("시계 반대 4번 회전하면 원래 모양으로 되돌아온다.", () => {
+        // given
+        const originCells = clone(block);
+
+        // when
+        block.rotate(false);
+        block.rotate(false);
+        block.rotate(false);
+        block.rotate(false);
+
+        // then
+        expect(block.cells).toEqual(originCells.cells);
+      });
     });
 
-    it("it should correctly rotate 'O' Block", () => {
-      const block = new Block(BlockType.O);
-      assertRotation(block, []);
+    describe("O 블락", () => {
+      it("시계 방향으로 1번 회전해도 원래 모양이다.", () => {
+        // given
+        const block = new Block(BlockType.O);
+        const originCells = clone(block);
+
+        // when
+        block.rotate(true);
+
+        // then
+        expect(block.cells).toEqual(originCells.cells);
+      });
     });
 
-    it("it should correctly rotate 'S' Block", () => {
-      const block = new Block(BlockType.S);
-      assertRotation(block, [
-        // prettier-ignore
-        [
+    describe("S 블락", () => {
+      let block: Block;
+      beforeEach(() => {
+        // given
+        block = new Block(BlockType.S);
+      });
+
+      it("시계 방향으로 1번 회전하면 다음과 같은 모양으로 된다.", () => {
+        // when
+        block.rotate(true);
+
+        // then
+        expect(block.cells).toEqual([
+          // prettier-ignore
           [1],
           [1, 1],
           [0, 1]
-        ]
-      ]);
+        ]);
+      });
+
+      it("시계 반대 방향으로 2번 회전하면 원래 모양으로 되돌아온다.", () => {
+        // given
+        const originCells = clone(block);
+
+        // when
+        block.rotate(false);
+        block.rotate(false);
+
+        // then
+        expect(block.cells).toEqual(originCells.cells);
+      });
     });
 
-    it("it should correctly rotate 'T' Block", () => {
-      const block = new Block(BlockType.T);
-      assertRotation(block, [
-        // prettier-ignore
-        [
+    describe("T 블락", () => {
+      let block: Block;
+      beforeEach(() => {
+        // given
+        block = new Block(BlockType.T);
+      });
+
+      it("시계 방향으로 2번 회전하면 'ㅗ' 모양이 된다.", () => {
+        // when
+        block.rotate(true);
+        block.rotate(true);
+
+        // then
+        expect(block.cells).toEqual([
+          // prettier-ignore
           [0, 1],
-          [1, 1],
-          [0, 1]
-        ],
-        // prettier-ignore
-        [
-          [0, 1],
-          [1, 1, 1],
-        ],
-        // prettier-ignore
-        [
-          [1],
-          [1, 1],
-          [1]
-        ]
-      ]);
+          [1, 1, 1]
+        ]);
+      });
+
+      it("시계 반대 방향으로 4번 회전하면 원래 모양으로 되돌아온다.", () => {
+        // given
+        const originCells = clone(block);
+
+        // when
+        block.rotate(false);
+        block.rotate(false);
+        block.rotate(false);
+        block.rotate(false);
+
+        // then
+        expect(block.cells).toEqual(originCells.cells);
+      });
     });
 
-    it("it should correctly rotate 'Z' Block", () => {
-      const block = new Block(BlockType.Z);
-      assertRotation(block, [
-        // prettier-ignore
-        [
+    describe("Z 블락", () => {
+      let block: Block;
+      beforeEach(() => {
+        // given
+        block = new Block(BlockType.Z);
+      });
+
+      it("시계 방향으로 1번 회전하면 다음과 같은 모양이 된다.", () => {
+        // when
+        block.rotate(true);
+
+        // then
+        expect(block.cells).toEqual([
+          // prettier-ignore
           [0, 1],
           [1, 1],
           [1]
-        ]
-      ]);
+        ]);
+      });
+
+      it("시계 반대 방향으로 2번 회전하면 원래 모양으로 되돌아온다.", () => {
+        // given
+        const originCells = clone(block);
+
+        // when
+        block.rotate(false);
+        block.rotate(false);
+
+        // then
+        expect(block.cells).toEqual(originCells.cells);
+      });
     });
+  });
+
+  describe("moveBlock", () => {
+    it("움직일 수 있는 블락을 왼쪽으로 이동시킬 수 있다.", () => {});
+    it("움직일 수 있는 블락을 오른쪽으로 이동시킬 수 있다.", () => {});
   });
 });

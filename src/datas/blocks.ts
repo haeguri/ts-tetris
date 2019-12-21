@@ -1,13 +1,13 @@
 import BlockType from "../enums/BlockType";
 
-type Block = {
+export type Blocks = {
   [key in BlockType]: Array<number[]>;
 };
 
 // prettier-ignore
-const blocks: Block = {
+const blocks: Blocks = {
   [BlockType.I]: [
-    [1, 1, 1, 1]
+    [1, 1, 1, 1],
   ],
   [BlockType.J]: [
     [0, 1],
