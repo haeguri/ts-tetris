@@ -1,7 +1,6 @@
 import Matrix from "./Matrix";
 import Block from "./Block";
 import BlockType from "./enums/BlockType";
-import { MatrixPosition } from "./interfaces/MatrixPosition";
 
 describe("Matrix", () => {
   describe("constructor", () => {

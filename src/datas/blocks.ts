@@ -1,8 +1,5 @@
 import BlockType from "../enums/BlockType";
-
-export type Blocks = {
-  [key in BlockType]: Array<number[]>;
-};
+import Blocks from "../types/Blocks";
 
 // prettier-ignore
 const blocks: Blocks = {

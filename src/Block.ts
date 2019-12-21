@@ -1,9 +1,10 @@
 import BlockType from "./enums/BlockType";
 import blocks from "./datas/blocks";
+import Cells from "./types/Cells";
 
 export default class Block {
   public type: BlockType;
-  public cells: Array<number[]>;
+  public cells: Cells;
 
   constructor(type: BlockType) {
     if (!(type in BlockType)) {
@@ -24,7 +25,7 @@ export default class Block {
 
   public rotate(isClockWise: boolean = true) {
     const nextHeight = this.width;
-    const nextCells: Array<number[]> = Array.from({ length: nextHeight });
+    const nextCells: Cells = Array.from({ length: nextHeight });
 
     for (let currRow = this.height - 1; currRow >= 0; currRow--) {
       const targetCells = [...this.cells[currRow]];
