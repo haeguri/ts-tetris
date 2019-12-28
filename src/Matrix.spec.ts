@@ -91,74 +91,35 @@ describe("Matrix", () => {
     });
   });
 
-  // describe("pushNewBlock", () => {
-  //   let matrix: Matrix;
-  //   beforeEach(() => {
-  //     matrix = new Matrix({ width: 6, height: 6 });
-  //     matrix.initCells();
-  //   });
+  describe("pushNewBlock", () => {
+    let matrix: Matrix;
+    beforeEach(() => {
+      matrix = new Matrix({ width: 6, height: 6 });
+    });
 
-  //   it("should change cells field by block", () => {
-  //     const block = new Block(BlockType.I);
-  //     matrix.pushNewBlock(
-  //       { row: matrix.height - 1, col: 1 } as MatrixPosition,
-  //       block
-  //     );
+    it("새로운 블락을 넣지 않으면, 움직일 수 있는 블락은 없다", () => {
+      // then
+      expect(matrix.movableBlock).toBeNull();
+    });
 
-  //     expect(matrix.cells).toEqual([
-  //       // prettier-ignore
-  //       [0, 0, 0, 0, 0, 0],
-  //       [0, 0, 0, 0, 0, 0],
-  //       [0, 0, 0, 0, 0, 0],
-  //       [0, 0, 0, 0, 0, 0],
-  //       [0, 0, 0, 0, 0, 0],
-  //       [0, 1, 1, 1, 1, 0]
-  //     ]);
-  //   });
+    it("새로운 블락을 넣으면, 그 블락은 움직일 수 있는 블락이다.", () => {
+      // when
+      matrix.pushNewBlock(BlockType.I);
+      // then
+      expect(matrix.movableBlock).not.toBeNull();
+    });
 
-  //   it("should change cells field by rotated block", () => {
-  //     const block = new Block(BlockType.I);
-  //     block.rotate();
-  //     matrix.pushNewBlock(
-  //       { row: matrix.height - 1, col: 1 } as MatrixPosition,
-  //       block
-  //     );
+    it("움직일 수 있는 블락이 있으면, 새로운 블락을 넣을 수 없다.", () => {
+      // given
+      matrix.pushNewBlock(BlockType.J);
+      // when
+      const func = () => matrix.pushNewBlock(BlockType.J);
+      // then
+      expect(func).toThrowError("Already exist movable block");
+    });
 
-  //     expect(matrix.cells).toEqual([
-  //       // prettier-ignore
-  //       [0, 0, 0, 0, 0, 0],
-  //       [0, 0, 0, 0, 0, 0],
-  //       [0, 1, 0, 0, 0, 0],
-  //       [0, 1, 0, 0, 0, 0],
-  //       [0, 1, 0, 0, 0, 0],
-  //       [0, 1, 0, 0, 0, 0]
-  //     ]);
-  //   });
-  // });
-
-  // describe("getColumnindexForNewBlock", () => {
-  //   let matrix: Matrix;
-  //   beforeEach(() => {
-  //     matrix = new Matrix({ width: 10, height: 10 });
-  //     matrix.initCells();
-  //   });
-
-  //   it("should get column index for push I block", () => {
-  //     const iBlock = new Block(BlockType.I);
-  //     let index = matrix.getColumnIndexForNewBlock(iBlock);
-  //     expect(index).toBe(3);
-  //     iBlock.rotate();
-  //     index = matrix.getColumnIndexForNewBlock(iBlock);
-  //     expect(index).toBe(4);
-  //   });
-
-  //   it("should get column index for push J block", () => {
-  //     const jBlock = new Block(BlockType.J);
-  //     let index = matrix.getColumnIndexForNewBlock(jBlock);
-  //     expect(index).toBe(4);
-  //     jBlock.rotate();
-  //     index = matrix.getColumnIndexForNewBlock(jBlock);
-  //     expect(index).toBe(3);
-  //   });
-  // });
+    it("움직일 수 있는 블락이 없어도, 자리가 없으면 새로운 블락을 넣을 수 없다.", () => {
+      // const tetris1 = new Tetris(6, 6);
+    });
+  });
 });

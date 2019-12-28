@@ -14,6 +14,15 @@ describe("Block", () => {
     });
   });
 
+  describe("setLeftTopPosition", () => {});
+
+  describe("getLeftTopPosition", () => {});
+
+  describe("moveBlock", () => {
+    it("움직일 수 있는 블락을 왼쪽으로 이동시킬 수 있다.", () => {});
+    it("움직일 수 있는 블락을 오른쪽으로 이동시킬 수 있다.", () => {});
+  });
+
   describe("rotate", () => {
     describe("I 블락", () => {
       let block: Block;
@@ -27,13 +36,15 @@ describe("Block", () => {
         block.rotate(true);
 
         // then
-        expect(block.cells).toEqual([
+        expect(block.cells).toEqual(
           // prettier-ignore
-          [1],
-          [1],
-          [1],
-          [1]
-        ]);
+          [
+            [1], // cells[0][0] // 1행 1열
+            [1], // cells[1][0] // 2행 1열
+            [1], // cells[2][0] // 3행 1열
+            [1], // cells[3][0] // 4행 1열
+          ]
+        );
       });
 
       it("시계 반대 방향으로 회전해도 'I' 모양이 된다.", () => {
@@ -63,11 +74,13 @@ describe("Block", () => {
         block.rotate(true);
 
         // then
-        expect(block.cells).toEqual([
+        expect(block.cells).toEqual(
           // prettier-ignore
-          [1],
-          [1, 1, 1]
-        ]);
+          [
+            [1],      // cells[0][0] 1행 1열
+            [1, 1, 1] // cells[1][0], cells[1][1], cells[1][2] 2행 1열, 2행 2열, 2행 3열
+          ]
+        );
       });
 
       it("시계 반대 방향으로 4번 회전하면 원래 모양으로 되돌아온다.", () => {
@@ -92,7 +105,7 @@ describe("Block", () => {
         block = new Block(BlockType.L);
       });
 
-      it("시계 2번 회전하면 'ㄱ' 모양이 된다.", () => {
+      it("시계 방향으로 2번 회전하면 'ㄱ' 모양이 된다.", () => {
         // when
         block.rotate(true);
         block.rotate(true);
@@ -106,7 +119,7 @@ describe("Block", () => {
         ]);
       });
 
-      it("시계 반대 4번 회전하면 원래 모양으로 되돌아온다.", () => {
+      it("시계 반대 방향으로 4번 회전하면 원래 모양으로 되돌아온다.", () => {
         // given
         const originCells = clone(block);
 
@@ -235,10 +248,5 @@ describe("Block", () => {
         expect(block.cells).toEqual(originCells.cells);
       });
     });
-  });
-
-  describe("moveBlock", () => {
-    it("움직일 수 있는 블락을 왼쪽으로 이동시킬 수 있다.", () => {});
-    it("움직일 수 있는 블락을 오른쪽으로 이동시킬 수 있다.", () => {});
   });
 });

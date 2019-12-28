@@ -1,50 +1,48 @@
 import Tetris from "./Tetris";
-import BlockType from "enums/BlockType";
-import Block from "./Block";
 
 describe("Tetris", () => {
-  describe("start", () => {
-    it("TODO: 타이머를 초기화 한다.", () => {
-      const tetris = new Tetris(6, 6);
-      tetris.start();
-    });
+  let tetris: Tetris;
+  beforeEach(() => {
+    tetris = new Tetris(6, 6);
   });
 
-  describe("pushNewBlock", () => {
-    let tetris: Tetris;
-    beforeEach(() => {
-      // common given
-      tetris = new Tetris(6, 6);
-    });
+  it("테트리스가 시작되면 타이머가 시작된다.", () => {});
 
-    it("새로운 블락을 넣지 않으면, 움직일 수 있는 블락은 없다", () => {
-      // then
-      expect(tetris.movableBlock).toBeNull();
-    });
+  it("타이머는 x초에 1번 블락을 움직인다.", () => {});
 
-    it("새로운 블락을 넣으면, 그 블락은 움직일 수 있는 블락이다.", () => {
-      // when
-      tetris.pushNewBlock(BlockType.I);
-      // then
-      expect(tetris.movableBlock).not.toBeNull();
-    });
+  it("x초를 변경해서 타이머가 실행되는 주기를 변경할 수 있다.", () => {});
 
-    it("움직일 수 있는 블락이 있으면, 새로운 블락을 넣을 수 없다.", () => {
-      // given
-      tetris.pushNewBlock(BlockType.J);
-      // when
-      const func = () => tetris.pushNewBlock(BlockType.J);
-      // then
-      expect(func).toThrowError("Already exist movable block");
-    });
+  it("키보드 조작은 ←, →, ↑, ↓, space 키로 할 수 있다.");
 
-    it("움직일 수 있는 블락이 없어도, 자리가 없으면 새로운 블락을 넣을 수 없다.", () => {
-      // const tetris1 = new Tetris(6, 6);
-    });
+  describe("← 키를 누르면 블락을 왼쪽으로 이동시킨다.", () => {
+    it("왼쪽에 자리가 있으면 블락을 왼쪽으로 이동시킨다.");
+
+    it("왼쪽에 자리가 없으면 블락을 이동시킬 수 없다.");
   });
 
-  describe("tick", () => {
-    it("움직일 수 있는 블락이 있으면, 그 블락을 아래로 내린다.", () => {});
-    it("움직일 수 있는 블락이 없으면, 새로운 블락을 넣는다", () => {});
+  describe("→ 키를 누르면 블락을 오른쪽으로 이동시킨다.", () => {
+    it("블락의 오른쪽에 자리가 있으면 블락을 오른쪽으로 이동시킨다.");
+
+    it("블락의 오른쪽에 자리가 없으면 블락은 이동되지 않는다.");
   });
+
+  describe("↓ 키를 누르면 블락을 아래로 이동시킨다.", () => {
+    it("블락의 아래에 자리가 있으면 블락을 아래로 이동시킨다.");
+
+    it("블락의 아래에 자리가 없으면 블락은 이동되지 않는다.");
+  });
+
+  it("↑ 키를 누르면 블락을 시계 방향으로 회전시킨다.", () => {});
+
+  it(
+    "space 키를 누르면 블락을 가장 아래로 이동시킨 후에 바로 고정시킬 수 있다."
+  );
+
+  it(
+    "블락을 타이머에 의해 아래로 이동시키려고 할 때 이동할 자리가 없으면 그 자리에 고정된다."
+  );
+
+  it(
+    "블락을 ↓ 키에 의해 아래로 이동시키려고 할 때 이동할 자리가 없으면 그 자리에 고정된다."
+  );
 });

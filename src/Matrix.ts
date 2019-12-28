@@ -1,9 +1,5 @@
 import Block from "./Block";
-
-interface MatrixPosition {
-  row: number;
-  col: number;
-}
+import BlockType from "enums/BlockType";
 
 interface ConstructorParams {
   width: number;
@@ -11,6 +7,7 @@ interface ConstructorParams {
 }
 
 export default class Matrix {
+  public movableBlock: Block | null = null;
   public width: number;
   public height: number;
   public cells: number[][];
@@ -44,6 +41,14 @@ export default class Matrix {
     }
 
     return bottomCells.every(({ row, col }) => this.cells[row][col] === 0);
+  }
+
+  public pushNewBlock(type: BlockType) {
+    if (this.movableBlock !== null) {
+      throw new Error("Already exist movable block");
+    }
+    const block = new Block(type);
+    this.movableBlock = block;
   }
 
   // public pushNewBlock({ row, col }: MatrixPosition, block: Block) {
