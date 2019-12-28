@@ -52,13 +52,15 @@ describe("Block", () => {
         block.rotate(false);
 
         // then
-        expect(block.cells).toEqual([
+        expect(block.cells).toEqual(
           // prettier-ignore
-          [1],
-          [1],
-          [1],
-          [1]
-        ]);
+          [
+            [1],
+            [1],
+            [1],
+            [1]
+          ]
+        );
       });
     });
 
@@ -77,8 +79,8 @@ describe("Block", () => {
         expect(block.cells).toEqual(
           // prettier-ignore
           [
-            [1],      // cells[0][0] 1행 1열
-            [1, 1, 1] // cells[1][0], cells[1][1], cells[1][2] 2행 1열, 2행 2열, 2행 3열
+            [1],      // cells[0][0] // 1행 1열
+            [1, 1, 1] // cells[1][0], cells[1][1], cells[1][2] // 2행 1열, 2행 2열, 2행 3열
           ]
         );
       });
@@ -111,12 +113,14 @@ describe("Block", () => {
         block.rotate(true);
 
         // then
-        expect(block.cells).toEqual([
+        expect(block.cells).toEqual(
           // prettier-ignore
-          [1, 1],
-          [0, 1],
-          [0, 1]
-        ]);
+          [
+            [1, 1],
+            [0, 1],
+            [0, 1]
+          ]
+        );
       });
 
       it("시계 반대 방향으로 4번 회전하면 원래 모양으로 되돌아온다.", () => {
@@ -160,12 +164,14 @@ describe("Block", () => {
         block.rotate(true);
 
         // then
-        expect(block.cells).toEqual([
+        expect(block.cells).toEqual(
           // prettier-ignore
-          [1],
-          [1, 1],
-          [0, 1]
-        ]);
+          [
+            [1],
+            [1, 1],
+            [0, 1]
+          ]
+        );
       });
 
       it("시계 반대 방향으로 2번 회전하면 원래 모양으로 되돌아온다.", () => {
@@ -194,11 +200,13 @@ describe("Block", () => {
         block.rotate(true);
 
         // then
-        expect(block.cells).toEqual([
+        expect(block.cells).toEqual(
           // prettier-ignore
-          [0, 1],
-          [1, 1, 1]
-        ]);
+          [
+            [0, 1],
+            [1, 1, 1]
+          ]
+        );
       });
 
       it("시계 반대 방향으로 4번 회전하면 원래 모양으로 되돌아온다.", () => {
@@ -228,12 +236,14 @@ describe("Block", () => {
         block.rotate(true);
 
         // then
-        expect(block.cells).toEqual([
+        expect(block.cells).toEqual(
           // prettier-ignore
-          [0, 1],
-          [1, 1],
-          [1]
-        ]);
+          [
+            [0, 1],
+            [1, 1],
+            [1]
+          ]
+        );
       });
 
       it("시계 반대 방향으로 2번 회전하면 원래 모양으로 되돌아온다.", () => {
