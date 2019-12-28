@@ -4,7 +4,12 @@
     "noImplicitAny": true,
     "module": "es6",
     "target": "es6",
-    "allowJs": true
-  },
-  "exclude": ["**/*.spec.ts"]
+    "allowJs": true,
+    "baseUrl": ".",
+    "paths": {
+      "types/*": ["src/types/*"],
+      "enums/*": ["src/enums/*"],
+      "datas/*": ["src/datas/*"]
+    }
+  }
 }
