@@ -1,4 +1,4 @@
-import BlockType from "../enums/BlockType";
+import BlockType from "enums/BlockType";
 import Cells from "./Cells";
 
 type Blocks = {

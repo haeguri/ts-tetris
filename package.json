@@ -6,16 +6,6 @@
     "start": "webpack-dev-server",
     "test": "jest"
   },
-  "jest": {
-    "transform": {
-      "^.+\\.ts$": "ts-jest"
-    },
-    "globals": {
-      "ts-jest": {
-        "enableTsDiagnostics": true
-      }
-    }
-  },
   "devDependencies": {
     "@types/jest": "^24.0.19",
     "@types/lodash": "^4.14.144",

@@ -1,5 +1,5 @@
-import BlockType from "../enums/BlockType";
-import Blocks from "../types/Blocks";
+import BlockType from "enums/BlockType";
+import Blocks from "types/Blocks";
 
 // prettier-ignore
 const blocks: Blocks = {

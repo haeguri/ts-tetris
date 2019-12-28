@@ -1,5 +1,5 @@
 import Block from "./Block";
-import BlockType from "./enums/BlockType";
+import BlockType from "enums/BlockType";
 import { clone } from "lodash";
 
 describe("Block", () => {

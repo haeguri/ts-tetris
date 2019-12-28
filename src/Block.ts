@@ -1,6 +1,6 @@
-import BlockType from "./enums/BlockType";
-import blocks from "./datas/blocks";
-import Cells from "./types/Cells";
+import BlockType from "enums/BlockType";
+import blocks from "datas/blocks";
+import Cells from "types/Cells";
 
 export default class Block {
   public type: BlockType;

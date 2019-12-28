@@ -1,5 +1,5 @@
 import Tetris from "./Tetris";
-import BlockType from "./enums/BlockType";
+import BlockType from "enums/BlockType";
 import Block from "./Block";
 
 describe("Tetris", () => {

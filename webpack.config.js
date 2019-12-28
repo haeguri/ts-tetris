@@ -21,7 +21,12 @@ module.exports = {
     contentBase: "./dist"
   },
   resolve: {
-    extensions: [".ts", ".js"]
+    extensions: [".ts", ".js"],
+    alias: {
+      enums: path.resolve(__dirname, "src/enums/"),
+      types: path.resolve(__dirname, "src/types/"),
+      datas: path.resolve(__dirname, "src/datas/")
+    }
   },
   output: {
     filename: "[name].bundle.js",
