@@ -54,7 +54,7 @@ export default class Matrix {
     return positions.every(({ row, col }) => this.cells[row][col] === 0);
   }
 
-  public moveDownBlock() {
+  public moveBlockToDown() {
     const positions = this.selectedBlock.getPositionAfterMoveDown();
     if (!this.isMovablePosition(positions)) {
       return;

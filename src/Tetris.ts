@@ -21,12 +21,12 @@ const blockSet = [
 export default class Tetris {
   readonly matrix: Matrix;
 
-  private initialTickPeriod: number;
+  private tickPeriod: number;
   private tickId?: number;
 
   constructor({ width, height, initialTickPeriod }: TetrisSetting) {
     this.matrix = new Matrix({ width, height });
-    this.initialTickPeriod = initialTickPeriod;
+    this.tickPeriod = initialTickPeriod;
   }
 
   get isTickStarted() {
@@ -36,7 +36,14 @@ export default class Tetris {
   public start() {
     this.tickId = (setInterval(() => {
       this.tick();
-    }, this.initialTickPeriod) as unknown) as number;
+    }, this.tickPeriod) as unknown) as number;
+  }
+
+  public refreshTick(tickPeriod: number;) {
+    clearInterval(this.tickId);
+
+    this.tickPeriod = tickPeriod;
+    this.start();
   }
 
   private tick() {
@@ -45,5 +52,7 @@ export default class Tetris {
         new Block(blockSet[Math.floor(Math.random() * 5)])
       );
     }
+
+    this.matrix.moveBlockToDown();
   }
 }

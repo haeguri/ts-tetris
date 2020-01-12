@@ -174,7 +174,7 @@ describe("Matrix", () => {
       matrix.pushNewBlock(block);
 
       // when
-      matrix.moveDownBlock();
+      matrix.moveBlockToDown();
 
       // then
       expect(moveDown).toBeCalledTimes(1);
@@ -196,7 +196,7 @@ describe("Matrix", () => {
       matrix.pushNewBlock(block);
 
       // when
-      matrix.moveDownBlock();
+      matrix.moveBlockToDown();
 
       // then
       expect(moveDown).toBeCalledTimes(0);

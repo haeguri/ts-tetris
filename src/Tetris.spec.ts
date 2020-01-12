@@ -1,6 +1,4 @@
 import Tetris from "./Tetris";
-import Block from "./Block";
-import BlockType from "enums/BlockType";
 
 describe("Tetris", () => {
   let tetris: Tetris;
@@ -13,7 +11,7 @@ describe("Tetris", () => {
     });
   });
 
-  describe("start", () => {
+  describe("tick", () => {
     jest.useFakeTimers();
 
     afterEach(() => {
@@ -51,11 +49,34 @@ describe("Tetris", () => {
       // then
       expect(pushNewBlock).toBeCalledTimes(1);
     });
+
+    it("tick은 매트리스에 움직일 수 있는 블락이 있으면, 그 블락을 아래로 움직인다.", () => {
+      // given
+      const moveBlockToDown = jest.spyOn(tetris.matrix, "moveBlockToDown");
+      tetris.start();
+
+      // when
+      jest.advanceTimersByTime(TICK_PERIOD * 1);
+
+      // then
+      expect(moveBlockToDown).toBeCalledTimes(1);
+    });
+
+    it("tick이 시작된 후 tick 주기를 변경할 수 있다.", () => {
+      // given
+      // @ts-ignore
+      const tick = jest.spyOn(tetris, "tick");
+      const NEW_TICK_PERIOD = 500;
+      tetris.start();
+
+      // when
+      tetris.refreshTick(NEW_TICK_PERIOD);
+      jest.advanceTimersByTime(NEW_TICK_PERIOD * 4);
+
+      // then
+      expect(tick).toBeCalledTimes(4);
+    });
   });
-
-  it("타이머는 x초에 1번 블락을 아래로 움직인다.", () => {});
-
-  it("타이머의 주기인 x초를 변경할 수 있다.", () => {});
 
   it("키보드 조작은 ←, →, ↑, ↓, space 키로 할 수 있다.", () => {});
 
