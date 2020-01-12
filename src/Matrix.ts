@@ -8,7 +8,7 @@ interface ConstructorParams {
 }
 
 export default class Matrix {
-  public movableBlock: Block | null = null;
+  public selectedBlock: Block | null = null;
   public width: number;
   public height: number;
   public cells: number[][];
@@ -29,37 +29,58 @@ export default class Matrix {
     );
   }
 
-  static getPositionsFromCells(pivotPosition: MatrixPosition, cells: Cells) {
+  public isPushable(block: Block) {
+    const positions = Matrix.getPositionsFromCells(this.width, block);
+
+    return this.isMovablePosition(positions);
+  }
+
+  public pushNewBlock(block: Block) {
+    if (this.selectedBlock !== null) {
+      throw new Error("Already exist movable block");
+    }
+
+    if (!this.isPushable(block)) {
+      return;
+    }
+
+    this.selectedBlock = block;
+    this.selectedBlock.setPositions(
+      Matrix.getPositionsFromCells(this.width, block)
+    );
+  }
+
+  public isMovablePosition(positions: MatrixPosition[]) {
+    return positions.every(({ row, col }) => this.cells[row][col] === 0);
+  }
+
+  public moveDownBlock() {
+    const positions = this.selectedBlock.getPositionAfterMoveDown();
+    if (!this.isMovablePosition(positions)) {
+      return;
+    }
+
+    this.selectedBlock.moveDown();
+  }
+
+  static getPositionsFromCells(matrixWidth: number, block: Block) {
+    const pivot: MatrixPosition = {
+      row: 0,
+      col: Math.floor((matrixWidth - block.width) / 2)
+    };
     const positions: MatrixPosition[] = [];
-    cells.forEach((rowCells, row) => {
+
+    block.cells.forEach((rowCells, row) => {
       rowCells.forEach((cell, col) => {
         if (cell === 1) {
           positions.push({
-            row: pivotPosition.row + row,
-            col: pivotPosition.col + col
+            row: pivot.row + row,
+            col: pivot.col + col
           });
         }
       });
     });
+
     return positions;
-  }
-
-  public isPushable(block: Block) {
-    const positions = Matrix.getPositionsFromCells(
-      {
-        row: 0,
-        col: Math.floor(this.width / block.width) - 1
-      },
-      block.cells
-    );
-
-    return positions.every(({ row, col }) => this.cells[row][col] === 0);
-  }
-
-  public pushNewBlock(block: Block) {
-    if (this.movableBlock !== null) {
-      throw new Error("Already exist movable block");
-    }
-    this.movableBlock = block;
   }
 }

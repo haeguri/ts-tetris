@@ -1,8 +1,10 @@
 import BlockType from "enums/BlockType";
 import blocks from "datas/blocks";
 import Cells from "types/Cells";
+import { MatrixPosition } from "./interfaces/MatrixPosition";
 
 export default class Block {
+  positions: MatrixPosition[];
   public type: BlockType;
   public cells: Cells;
 
@@ -15,12 +17,27 @@ export default class Block {
     this.cells = blocks[type];
   }
 
+  public setPositions(positions: MatrixPosition[]) {
+    this.positions = positions;
+  }
+
   get height() {
     return this.cells.length;
   }
 
   get width() {
     return this.cells.reduce((prev, curr) => Math.max(prev, curr.length), 0);
+  }
+
+  public getPositionAfterMoveDown() {
+    return this.positions.map(p => ({
+      ...p,
+      row: p.row + 1
+    }));
+  }
+
+  public moveDown() {
+    this.positions = this.getPositionAfterMoveDown();
   }
 
   public rotate(isClockWise: boolean = true) {

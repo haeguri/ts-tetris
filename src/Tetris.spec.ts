@@ -1,18 +1,55 @@
 import Tetris from "./Tetris";
+import Block from "./Block";
+import BlockType from "enums/BlockType";
 
 describe("Tetris", () => {
   let tetris: Tetris;
+  const TICK_PERIOD = 1000;
   beforeEach(() => {
-    tetris = new Tetris({ width: 6, height: 6, initialTickPeriod: 1000 });
+    tetris = new Tetris({
+      width: 6,
+      height: 6,
+      initialTickPeriod: TICK_PERIOD
+    });
   });
 
   describe("start", () => {
-    it("테트리스가 시작되면 타이머가 시작된다.", () => {
+    jest.useFakeTimers();
+
+    afterEach(() => {
+      jest.clearAllTimers();
+    });
+
+    it("테트리스가 시작되면 tick이 시작된다.", () => {
       // when
       tetris.start();
 
       // then
       expect(tetris.isTickStarted).toBe(true);
+    });
+
+    it("tick은 매트리스에 움직일 수 있는 블락이 없으면 새로운 블락을 넣는다.", () => {
+      // given
+      const pushNewBlock = jest.spyOn(tetris.matrix, "pushNewBlock");
+      tetris.start();
+
+      // when
+      jest.advanceTimersByTime(TICK_PERIOD * 1);
+
+      // then
+      expect(pushNewBlock).toBeCalledTimes(1);
+    });
+
+    it("tick은 매트리스에 움직일 수 있는 블락이 있으면 새로운 블락을 넣지 않는다.", () => {
+      // given
+      const pushNewBlock = jest.spyOn(tetris.matrix, "pushNewBlock");
+      tetris.start();
+
+      // when
+      jest.advanceTimersByTime(TICK_PERIOD * 2);
+
+      // then
+      expect(pushNewBlock).toBeCalledTimes(1);
     });
   });
 
@@ -42,12 +79,6 @@ describe("Tetris", () => {
     it("오른쪽에 자리가 있으면 블락의 cell, rotation pivot 위치가 오른쪽으로 한 칸 이동된다.", () => {});
 
     it("오른쪽에 자리가 없으면 블락은 이동되지 않는다.", () => {});
-  });
-
-  describe("↓ 키를 누르면 블락을 아래로 이동시킨다.", () => {
-    it("아래에 자리가 있으면 블락의 cell, rotation pivot 위치가 아래로 한 칸 이동된다.", () => {});
-
-    it("아래에 자리가 없으면 블락은 이동되지 않는다.", () => {});
   });
 
   describe("↑ 키를 누르면 블락을 회전시킨다.", () => {
@@ -89,6 +120,8 @@ describe("Tetris", () => {
 
     it("고정된 블락의 밑에서 2번 째 줄에서 수평선이 생기면 수평선이 제거되지 않는다.", () => {});
   });
+
+  it("블락이 고정되면 타이머는 refresh 된다.", () => {});
 
   describe("수평선이 제거되었을 때 점수가 오른다.", () => {
     it("1개의 수평선이 제거되면 '현재 난이도 * 10'만큼 점수가 오른다.", () => {});

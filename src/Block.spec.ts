@@ -1,6 +1,7 @@
 import Block from "./Block";
 import BlockType from "enums/BlockType";
 import { clone } from "lodash";
+import blocks from "datas/blocks";
 
 describe("Block", () => {
   describe("constructor", () => {
@@ -14,13 +15,28 @@ describe("Block", () => {
     });
   });
 
-  describe("setLeftTopPosition", () => {});
+  describe("moveDown", () => {
+    it("원래 위치가 [{row: 0, col: 0}, {row: 0, col: 1}, {row: 1, col: 0}, {row: 1, col: 1}]이면 이동 후에는 row가 1씩 증가한다.", () => {
+      // given
+      const block = new Block(BlockType.O);
+      block.setPositions([
+        { row: 0, col: 0 },
+        { row: 0, col: 1 },
+        { row: 1, col: 0 },
+        { row: 1, col: 1 }
+      ]);
 
-  describe("getLeftTopPosition", () => {});
+      // when
+      block.moveDown();
 
-  describe("moveBlock", () => {
-    it("움직일 수 있는 블락을 왼쪽으로 이동시킬 수 있다.", () => {});
-    it("움직일 수 있는 블락을 오른쪽으로 이동시킬 수 있다.", () => {});
+      // then
+      expect(block.positions).toEqual([
+        { row: 1, col: 0 },
+        { row: 1, col: 1 },
+        { row: 2, col: 0 },
+        { row: 2, col: 1 }
+      ]);
+    });
   });
 
   describe("rotate", () => {

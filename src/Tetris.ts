@@ -1,10 +1,22 @@
 import Matrix from "./Matrix";
+import blocks from "datas/blocks";
+import BlockType from "enums/BlockType";
+import Block from "./Block";
 
 interface TetrisSetting {
   width: number;
   height: number;
   initialTickPeriod: number;
 }
+
+const blockSet = [
+  BlockType.I,
+  BlockType.J,
+  BlockType.L,
+  BlockType.O,
+  BlockType.S,
+  BlockType.T
+];
 
 export default class Tetris {
   readonly matrix: Matrix;
@@ -22,7 +34,16 @@ export default class Tetris {
   }
 
   public start() {
-    this.tickId = (setInterval(() => {},
-    this.initialTickPeriod) as unknown) as number;
+    this.tickId = (setInterval(() => {
+      this.tick();
+    }, this.initialTickPeriod) as unknown) as number;
+  }
+
+  private tick() {
+    if (this.matrix.selectedBlock === null) {
+      this.matrix.pushNewBlock(
+        new Block(blockSet[Math.floor(Math.random() * 5)])
+      );
+    }
   }
 }
