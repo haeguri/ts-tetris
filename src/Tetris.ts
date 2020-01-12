@@ -1,5 +1,4 @@
 import Matrix from "./Matrix";
-import blocks from "datas/blocks";
 import BlockType from "enums/BlockType";
 import Block from "./Block";
 
