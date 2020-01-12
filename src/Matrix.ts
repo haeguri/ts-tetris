@@ -29,25 +29,26 @@ export default class Matrix {
   }
 
   public isPushable(block: Block) {
-    const leftBottomRow = 0;
-    const leftBottomCol = Math.floor(this.width / block.width) - 1;
+    const leftTopRow = 0;
+    const leftTopCol = Math.floor(this.width / block.width) - 1;
 
-    const bottomCells = [];
-    for (let c = 0; c < block.width; c++) {
-      bottomCells.push({
-        row: leftBottomRow,
-        col: leftBottomCol + c
-      });
-    }
+    // const leftBottomRow = 0;
 
-    return bottomCells.every(({ row, col }) => this.cells[row][col] === 0);
+    // const bottomCells = [];
+    // for (let c = 0; c < block.width; c++) {
+    //   bottomCells.push({
+    //     row: leftBottomRow,
+    //     col: leftBottomCol + c
+    //   });
+    // }
+
+    // return bottomCells.every(({ row, col }) => this.cells[row][col] === 0);
   }
 
-  public pushNewBlock(type: BlockType) {
+  public pushNewBlock(block: Block) {
     if (this.movableBlock !== null) {
       throw new Error("Already exist movable block");
     }
-    const block = new Block(type);
     this.movableBlock = block;
   }
 

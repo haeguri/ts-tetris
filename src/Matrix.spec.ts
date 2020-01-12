@@ -45,14 +45,22 @@ describe("Matrix", () => {
     beforeEach(() => {
       matrix = new Matrix({ width: 6, height: 6 });
     });
-    it("매트리스가 비었을 때는 블락을 넣을 수 있다.", () => {
-      // given
-      const block = new Block(BlockType.I);
-      // then
+
+    it("공간이 있으면 블락을 넣을 수 있다.", () => {
+      const block = new Block(BlockType.O);
+      // prettier-ignore
+      matrix.cells = [
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 1, 1, 0],
+        [0, 0, 0, 0, 1, 0],
+        [0, 1, 1, 1, 1, 0],
+        [0, 1, 1, 1, 1, 0]
+      ]
       expect(matrix.isPushable(block)).toBe(true);
     });
 
-    it("매트리스가 안비어도 자리가 있으면 블락을 넣을 수 있다.", () => {
+    it("공간이 없으면 블락을 넣을 수 없다.", () => {
       const block = new Block(BlockType.O);
       // prettier-ignore
       matrix.cells = [
@@ -63,30 +71,6 @@ describe("Matrix", () => {
         [0, 1, 1, 1, 1, 0],
         [0, 1, 1, 1, 1, 0]
       ]
-      expect(matrix.isPushable(block)).toBe(true);
-    });
-
-    it("매트리스가 안비었으면 블락을 넣을 수 없다.", () => {
-      const block = new Block(BlockType.J);
-      // prettier-ignore
-      matrix.cells = [
-        [0, 0, 1, 1, 0, 0],
-        [0, 0, 0, 1, 0, 0],
-        [0, 0, 0, 1, 1, 0],
-        [0, 0, 0, 0, 1, 0],
-        [0, 1, 1, 1, 1, 0],
-        [0, 1, 1, 1, 1, 0]
-      ];
-      expect(matrix.isPushable(block)).toBe(false);
-      // prettier-ignore
-      matrix.cells = [
-        [0, 1, 0, 1, 0, 0],
-        [0, 1, 0, 1, 0, 0],
-        [0, 1, 0, 1, 1, 0],
-        [0, 1, 0, 1, 1, 0],
-        [0, 1, 1, 1, 1, 0],
-        [0, 1, 1, 1, 1, 0]
-      ];
       expect(matrix.isPushable(block)).toBe(false);
     });
   });
@@ -97,29 +81,35 @@ describe("Matrix", () => {
       matrix = new Matrix({ width: 6, height: 6 });
     });
 
-    it("새로운 블락을 넣지 않으면, 움직일 수 있는 블락은 없다", () => {
+    it("처음에는 움직일 수 있는 블락이 없다.", () => {
       // then
       expect(matrix.movableBlock).toBeNull();
     });
 
     it("새로운 블락을 넣으면, 그 블락은 움직일 수 있는 블락이다.", () => {
+      // given
+      const block = new Block(BlockType.I);
+
       // when
-      matrix.pushNewBlock(BlockType.I);
+      matrix.pushNewBlock(block);
+
       // then
-      expect(matrix.movableBlock).not.toBeNull();
+      expect(matrix.movableBlock).toEqual(block);
     });
 
     it("움직일 수 있는 블락이 있으면, 새로운 블락을 넣을 수 없다.", () => {
       // given
-      matrix.pushNewBlock(BlockType.J);
-      // when
-      const func = () => matrix.pushNewBlock(BlockType.J);
-      // then
-      expect(func).toThrowError("Already exist movable block");
-    });
+      const prevPushBlock = new Block(BlockType.J);
+      matrix.pushNewBlock(prevPushBlock);
 
-    it("움직일 수 있는 블락이 없어도, 자리가 없으면 새로운 블락을 넣을 수 없다.", () => {
-      // const tetris1 = new Tetris(6, 6);
+      // when
+      const nextPushBlock = new Block(BlockType.T);
+      const callPushNewBlock = () => matrix.pushNewBlock(nextPushBlock);
+
+      // then
+      expect(callPushNewBlock).toThrowError("Already exist movable block");
+      expect(matrix.movableBlock).not.toEqual(nextPushBlock);
+      expect(matrix.movableBlock).toEqual(prevPushBlock);
     });
   });
 });

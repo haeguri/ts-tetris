@@ -31,9 +31,7 @@ export default class Block {
       const targetCells = [...this.cells[currRow]];
 
       for (let nextRow = 0; nextRow < nextHeight; nextRow++) {
-        if (nextCells[nextRow] === undefined) {
-          nextCells[nextRow] = [];
-        }
+        nextCells[nextRow] = nextCells[nextRow] ?? [];
 
         if (isClockWise) {
           nextCells[nextRow].push(targetCells[nextRow]);
