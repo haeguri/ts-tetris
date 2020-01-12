@@ -9,7 +9,5 @@ export default (cells: number[][]) => {
     result += "\n";
   });
 
-  console.log(result);
-
   return result;
 };

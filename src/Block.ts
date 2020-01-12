@@ -29,11 +29,33 @@ export default class Block {
     return this.cells.reduce((prev, curr) => Math.max(prev, curr.length), 0);
   }
 
+  public getPositionAfterMoveRight() {
+    return this.positions.map(p => ({
+      ...p,
+      col: p.col + 1
+    }));
+  }
+
+  public getPositionAfterMoveLeft() {
+    return this.positions.map(p => ({
+      ...p,
+      col: p.col - 1
+    }));
+  }
+
   public getPositionAfterMoveDown() {
     return this.positions.map(p => ({
       ...p,
       row: p.row + 1
     }));
+  }
+
+  public moveLeft() {
+    this.positions = this.getPositionAfterMoveLeft();
+  }
+
+  public moveRight() {
+    this.positions = this.getPositionAfterMoveRight();
   }
 
   public moveDown() {

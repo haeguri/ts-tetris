@@ -51,7 +51,25 @@ export default class Matrix {
   }
 
   public isMovablePosition(positions: MatrixPosition[]) {
-    return positions.every(({ row, col }) => this.cells[row][col] === 0);
+    return positions.every(({ row, col }) => this.cells?.[row]?.[col] === 0);
+  }
+
+  public moveBlockToRight() {
+    const positions = this.selectedBlock.getPositionAfterMoveRight();
+    if (!this.isMovablePosition(positions)) {
+      return;
+    }
+
+    this.selectedBlock.moveRight();
+  }
+
+  public moveBlockToLeft() {
+    const positions = this.selectedBlock.getPositionAfterMoveLeft();
+    if (!this.isMovablePosition(positions)) {
+      return;
+    }
+
+    this.selectedBlock.moveLeft();
   }
 
   public moveBlockToDown() {

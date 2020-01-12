@@ -15,6 +15,54 @@ describe("Block", () => {
     });
   });
 
+  describe("moveRight", () => {
+    it("원래 위치가 [{row: 2, col: 2}, {row: 2, col: 3}, {row: 2, col: 4}, {row: 3, col: 4}]이면 이동 후에는 col이 1씩 증가한다.", () => {
+      // given
+      const block = new Block(BlockType.O);
+      block.setPositions([
+        { row: 2, col: 2 },
+        { row: 2, col: 3 },
+        { row: 2, col: 4 },
+        { row: 3, col: 4 }
+      ]);
+
+      // when
+      block.moveRight();
+
+      // then
+      expect(block.positions).toEqual([
+        { row: 2, col: 3 },
+        { row: 2, col: 4 },
+        { row: 2, col: 5 },
+        { row: 3, col: 5 }
+      ]);
+    });
+  });
+
+  describe("moveLeft", () => {
+    it("원래 위치가 [{row: 1, col: 1}, {row: 1, col: 2}, {row: 2, col: 2}, {row: 2, col: 3}]이면 이동 후에는 col이 1씩 감소한다.", () => {
+      // given
+      const block = new Block(BlockType.O);
+      block.setPositions([
+        { row: 1, col: 1 },
+        { row: 1, col: 2 },
+        { row: 2, col: 2 },
+        { row: 2, col: 3 }
+      ]);
+
+      // when
+      block.moveLeft();
+
+      // then
+      expect(block.positions).toEqual([
+        { row: 1, col: 0 },
+        { row: 1, col: 1 },
+        { row: 2, col: 1 },
+        { row: 2, col: 2 }
+      ]);
+    });
+  });
+
   describe("moveDown", () => {
     it("원래 위치가 [{row: 0, col: 0}, {row: 0, col: 1}, {row: 1, col: 0}, {row: 1, col: 1}]이면 이동 후에는 row가 1씩 증가한다.", () => {
       // given

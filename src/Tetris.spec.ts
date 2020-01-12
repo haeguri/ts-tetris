@@ -64,13 +64,13 @@ describe("Tetris", () => {
 
     it("tick이 시작된 후 tick 주기를 변경할 수 있다.", () => {
       // given
-      // @ts-ignore
-      const tick = jest.spyOn(tetris, "tick");
       const NEW_TICK_PERIOD = 500;
       tetris.start();
 
       // when
       tetris.refreshTick(NEW_TICK_PERIOD);
+      // @ts-ignore
+      const tick = jest.spyOn(tetris, "tick");
       jest.advanceTimersByTime(NEW_TICK_PERIOD * 4);
 
       // then
@@ -81,8 +81,6 @@ describe("Tetris", () => {
   it("키보드 조작은 ←, →, ↑, ↓, space 키로 할 수 있다.", () => {});
 
   describe("블락을 새로 넣을 수 있다.", () => {
-    it("새로운 블락은 랜덤하게 생성된다. ", () => {});
-
     it("넣을 자리가 있을 때 블락은 매트릭스 위의 OO 위치를 갖게 된다...?", () => {});
 
     it("넣을 자리가 있을 때 블락의 OO 위치에서 좌상단의 cell의 위치는 rotation pivot 위치가 된다.", () => {});
@@ -90,11 +88,11 @@ describe("Tetris", () => {
     it("넣을 자리가 없으면 게임이 끝난다.", () => {});
   });
 
-  describe("← 키를 누르면 블락을 왼쪽으로 이동시킨다.", () => {
-    it("왼쪽에 자리가 있으면 블락의 cell, rotation pivot 위치가 왼쪽으로 한 칸 이동된다.", () => {});
+  // describe("← 키를 누르면 블락을 왼쪽으로 이동시킨다.", () => {
+  //   it("왼쪽에 자리가 있으면 블락의 cell, rotation pivot 위치가 왼쪽으로 한 칸 이동된다.", () => {});
 
-    it("왼쪽에 자리가 없으면 블락을 이동시킬 수 없다.", () => {});
-  });
+  //   it("왼쪽에 자리가 없으면 블락을 이동시킬 수 없다.", () => {});
+  // });
 
   describe("→ 키를 누르면 블락을 오른쪽으로 이동시킨다.", () => {
     it("오른쪽에 자리가 있으면 블락의 cell, rotation pivot 위치가 오른쪽으로 한 칸 이동된다.", () => {});

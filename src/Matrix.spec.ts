@@ -156,14 +156,13 @@ describe("Matrix", () => {
     });
   });
 
-  describe("moveDown", () => {
+  describe("moveBlockToDown", () => {
     it("아래에 자리가 있으면 블락을 아래로 이동한다.", () => {
       // given
       const matrix = new Matrix({ width: 6, height: 6 });
       const block = new Block(BlockType.Z);
       const moveDown = jest.spyOn(block, "moveDown");
       matrix.cells = [
-        // prettier-ignore
         [0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0],
@@ -185,7 +184,6 @@ describe("Matrix", () => {
       const block = new Block(BlockType.Z);
       const moveDown = jest.spyOn(block, "moveDown");
       matrix.cells = [
-        // prettier-ignore
         [0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0],
         [0, 0, 1, 1, 0, 0],
@@ -200,6 +198,96 @@ describe("Matrix", () => {
 
       // then
       expect(moveDown).toBeCalledTimes(0);
+    });
+  });
+
+  describe("moveBlockToLeft", () => {
+    it("왼쪽에 자리가 있으면 블락을 왼쪽으로 이동한다.", () => {
+      // given
+      const matrix = new Matrix({ width: 6, height: 6 });
+      const block = new Block(BlockType.Z);
+      const moveLeft = jest.spyOn(block, "moveLeft");
+      matrix.cells = [
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0]
+      ];
+      matrix.pushNewBlock(block);
+
+      // when
+      matrix.moveBlockToLeft();
+
+      // then
+      expect(moveLeft).toBeCalledTimes(1);
+    });
+
+    it("왼쪽에 자리가 없으면 블락은 이동되지 않는다.", () => {
+      const matrix = new Matrix({ width: 6, height: 6 });
+      const block = new Block(BlockType.Z);
+      const moveLeft = jest.spyOn(block, "moveLeft");
+      matrix.cells = [
+        [1, 0, 0, 0, 0, 0],
+        [1, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0]
+      ];
+      matrix.pushNewBlock(block);
+
+      // when
+      matrix.moveBlockToLeft();
+
+      // then
+      expect(moveLeft).toBeCalledTimes(0);
+    });
+  });
+
+  describe("moveBlockToRight", () => {
+    it("오른쪽에 자리가 있으면 블락을 오른쪽으로 이동한다.", () => {
+      // given
+      const matrix = new Matrix({ width: 6, height: 6 });
+      const block = new Block(BlockType.J);
+      const moveRight = jest.spyOn(block, "moveRight");
+      matrix.cells = [
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0]
+      ];
+      matrix.pushNewBlock(block);
+
+      // when
+      matrix.moveBlockToRight();
+
+      // then
+      expect(moveRight).toBeCalledTimes(1);
+    });
+
+    it("오른쪽에 자리가 없으면 블락은 이동되지 않는다.", () => {
+      const matrix = new Matrix({ width: 6, height: 6 });
+      const block = new Block(BlockType.Z);
+      const moveRight = jest.spyOn(block, "moveRight");
+      matrix.cells = [
+        [0, 0, 0, 0, 1, 0],
+        [0, 0, 0, 0, 1, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0]
+      ];
+      matrix.pushNewBlock(block);
+
+      // when
+      matrix.moveBlockToRight();
+
+      // then
+      expect(moveRight).toBeCalledTimes(0);
     });
   });
 });
