@@ -120,18 +120,20 @@ describe("Matrix", () => {
   });
 
   describe("pushNewBlock", () => {
-    let matrix: Matrix;
-    beforeEach(() => {
-      matrix = new Matrix({ width: 6, height: 6 });
-    });
-
     it("처음에는 움직일 수 있는 블락이 없다.", () => {
+      // given
+      const matrix = new Matrix({ width: 6, height: 6 });
+
+      // when
+      // nothing
+
       // then
       expect(matrix.movableBlock).toBeNull();
     });
 
     it("새로운 블락을 넣으면, 그 블락은 움직일 수 있는 블락이다.", () => {
       // given
+      const matrix = new Matrix({ width: 6, height: 6 });
       const block = new Block(BlockType.I);
 
       // when
@@ -143,6 +145,7 @@ describe("Matrix", () => {
 
     it("움직일 수 있는 블락이 있으면, 새로운 블락을 넣을 수 없다.", () => {
       // given
+      const matrix = new Matrix({ width: 6, height: 6 });
       const prevPushBlock = new Block(BlockType.J);
       matrix.pushNewBlock(prevPushBlock);
 

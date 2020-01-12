@@ -1,5 +1,4 @@
 import Block from "./Block";
-import BlockType from "enums/BlockType";
 import { MatrixPosition } from "./interfaces/MatrixPosition";
 import Cells from "types/Cells";
 
@@ -63,20 +62,4 @@ export default class Matrix {
     }
     this.movableBlock = block;
   }
-
-  // public pushNewBlock({ row, col }: MatrixPosition, block: Block) {
-  //   block.cells.forEach((rowCells, rIndex) => {
-  //     rowCells.forEach((_, cIndex) => {
-  //       this.cells[row + rIndex][col + cIndex] = col;
-  //     });
-  //   });
-  // }
-
-  // public getRowIndexForNewBlock() {
-  //   return 0;
-  // }
-
-  // public getColumnIndexForNewBlock(block: Block) {
-  //   return Math.floor((this.width - block.width) / 2);
-  // }
 }
