@@ -1,6 +1,8 @@
 import Matrix from "./Matrix";
 import Block from "./Block";
 import BlockType from "enums/BlockType";
+import { MatrixPosition } from "./interfaces/MatrixPosition";
+import Cells from "types/Cells";
 
 describe("Matrix", () => {
   describe("constructor", () => {
@@ -37,6 +39,48 @@ describe("Matrix", () => {
         expect(e).toBeInstanceOf(Error);
         expect(e.message).toBe("width, height is must be even number");
       }
+    });
+  });
+
+  describe("getPositionsFromCells", () => {
+    it("{row: 0, col: 3}와 'O' 블락이 입력되면 [{row: 0, col: 3}, {row: 0, col: 4}, {row: 1, col: 3}, {row: 1, col:4}]가 반환되야 한다.", () => {
+      // given
+      const pivotPosition: MatrixPosition = {
+        row: 0,
+        col: 3
+      };
+      const cells: Cells = new Block(BlockType.O).cells;
+
+      // when
+      const result = Matrix.getPositionsFromCells(pivotPosition, cells);
+
+      // then
+      expect(result).toEqual([
+        { row: 0, col: 3 },
+        { row: 0, col: 4 },
+        { row: 1, col: 3 },
+        { row: 1, col: 4 }
+      ]);
+    });
+
+    it("{rol: 0, col: 2}와 'I' 블락이 입력되면 [{row: 0, col: 2}, {row: 0, col: 3}, {row: 0, col: 4}, {row: 0, col: 5}]가 반환되야 한다.", () => {
+      // given
+      const pivotPosition: MatrixPosition = {
+        row: 0,
+        col: 2
+      };
+      const cells: Cells = new Block(BlockType.I).cells;
+
+      // when
+      const result = Matrix.getPositionsFromCells(pivotPosition, cells);
+
+      // then
+      expect(result).toEqual([
+        { row: 0, col: 2 },
+        { row: 0, col: 3 },
+        { row: 0, col: 4 },
+        { row: 0, col: 5 }
+      ]);
     });
   });
 

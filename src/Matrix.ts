@@ -1,5 +1,7 @@
 import Block from "./Block";
 import BlockType from "enums/BlockType";
+import { MatrixPosition } from "./interfaces/MatrixPosition";
+import Cells from "types/Cells";
 
 interface ConstructorParams {
   width: number;
@@ -28,21 +30,31 @@ export default class Matrix {
     );
   }
 
+  static getPositionsFromCells(pivotPosition: MatrixPosition, cells: Cells) {
+    const positions: MatrixPosition[] = [];
+    cells.forEach((rowCells, row) => {
+      rowCells.forEach((cell, col) => {
+        if (cell === 1) {
+          positions.push({
+            row: pivotPosition.row + row,
+            col: pivotPosition.col + col
+          });
+        }
+      });
+    });
+    return positions;
+  }
+
   public isPushable(block: Block) {
-    const leftTopRow = 0;
-    const leftTopCol = Math.floor(this.width / block.width) - 1;
+    const positions = Matrix.getPositionsFromCells(
+      {
+        row: 0,
+        col: Math.floor(this.width / block.width) - 1
+      },
+      block.cells
+    );
 
-    // const leftBottomRow = 0;
-
-    // const bottomCells = [];
-    // for (let c = 0; c < block.width; c++) {
-    //   bottomCells.push({
-    //     row: leftBottomRow,
-    //     col: leftBottomCol + c
-    //   });
-    // }
-
-    // return bottomCells.every(({ row, col }) => this.cells[row][col] === 0);
+    return positions.every(({ row, col }) => this.cells[row][col] === 0);
   }
 
   public pushNewBlock(block: Block) {
